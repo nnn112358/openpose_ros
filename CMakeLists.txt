@@ -16,16 +16,29 @@ catkin_package()
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
-  /home/rein/openpose/include
-  /home/rein/openpose/3rdparty/caffe/include
-  /home/rein/openpose/3rdparty/caffe/.build_release/src
+  ${OpenCV_INCLUDE_DIRS}
+  /usr/local/cuda-8.0/include
+  /home/iqit/openpose/include
+  /home/iqit/openpose/3rdparty/caffe/include
+  /home/iqit/openpose/3rdparty/caffe/.build_release/src
 )
 
-add_executable(${PROJECT_NAME}_node src/openpose_ros_node.cpp)
+add_executable(openpose_ros_node src/openpose_ros_node.cpp)
+
+add_executable(openpose_ros_client src/openpose_ros_client.cpp)
+
 
 # Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
+target_link_libraries(openpose_ros_node
   ${catkin_LIBRARIES}
-  /home/rein/openpose/build/lib/libopenpose.so
-  /home/rein/openpose/3rdparty/caffe/.build_release/lib/libcaffe.so
+  /home/iqit/openpose/build/lib/libopenpose.so
+  /home/iqit/openpose/3rdparty/caffe/.build_release/lib/libcaffe.so
 )
+
+# Specify libraries to link a library or executable target against
+target_link_libraries(openpose_ros_client
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
+
+
